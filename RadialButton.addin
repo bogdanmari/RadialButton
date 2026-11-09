@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>RadialButton</Name>
+    <Assembly>RadialButton\RadialButton.dll</Assembly>
+    <AddInId>4659B753-079E-4EC5-A951-0FF1C3C4B501</AddInId>
+    <FullClassName>RadialButton.App</FullClassName>
+    <VendorId>BGDN</VendorId>
+    <VendorDescription>RadialButton</VendorDescription>
+  </AddIn>
+  <AddIn Type="Command">
+    <Text>RadialButton Open</Text>
+    <Description>Open the RadialButton menu.</Description>
+    <Assembly>RadialButton\RadialButton.dll</Assembly>
+    <AddInId>D3B7431C-43A1-4DDC-B3AF-9F41C1EF2501</AddInId>
+    <FullClassName>RadialButton.RadialButtonCommand</FullClassName>
+    <VendorId>BGDN</VendorId>
+  </AddIn>
+</RevitAddIns>

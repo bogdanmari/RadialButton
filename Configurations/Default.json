@@ -1,0 +1,29 @@
+{
+  "Product": "RadialButton",
+  "Version": 4,
+  "Items": [],
+  "Tabs": [
+    {
+      "Id": "default-main",
+      "Name": "Main",
+      "IsMain": true,
+      "IsFamily": true,
+      "Items": [
+        {
+          "Position": 0,
+          "Title": "Move",
+          "CommandType": "Revit",
+          "Command": "Move",
+          "CommandLabel": "Move"
+        },
+        {
+          "Position": 1,
+          "Title": "Copy",
+          "CommandType": "Revit",
+          "Command": "Copy",
+          "CommandLabel": "Copy"
+        }
+      ]
+    }
+  ]
+}

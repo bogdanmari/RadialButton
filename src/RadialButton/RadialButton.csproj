@@ -1,0 +1,66 @@
+<Project>
+  <PropertyGroup>
+    <Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
+    <BuildFamily>2025+</BuildFamily>
+    <BuildFamily Condition="'$(Configuration)' == 'Legacy'">2024-</BuildFamily>
+    <BaseIntermediateOutputPath>obj\$(BuildFamily)\</BaseIntermediateOutputPath>
+  </PropertyGroup>
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+  <PropertyGroup>
+    <Configurations>Debug;Release;Legacy</Configurations>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework Condition="'$(Configuration)' == 'Legacy'">net48</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <LangVersion>12.0</LangVersion>
+    <PlatformTarget>x64</PlatformTarget>
+    <AssemblyName>RadialButton</AssemblyName>
+    <RootNamespace>RadialButton</RootNamespace>
+    <ApplicationIcon>Resources\RadialButton.ico</ApplicationIcon>
+    <Optimize Condition="'$(Configuration)' == 'Legacy'">true</Optimize>
+    <ApiYear>2025</ApiYear>
+    <ApiYear Condition="'$(Configuration)' == 'Legacy'">2022</ApiYear>
+    <RevitInstallPath Condition="'$(RevitInstallPath)' == ''">C:\Program Files\Autodesk\Revit $(ApiYear)</RevitInstallPath>
+    <OutputPath>$(MSBuildProjectDirectory)\..\..\bin\$(BuildFamily)\RadialButton\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <DefaultItemExcludes>$(DefaultItemExcludes);obj\**;bin\**</DefaultItemExcludes>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="RevitAPI">
+      <HintPath>$(RevitInstallPath)\RevitAPI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="RevitAPIUI">
+      <HintPath>$(RevitInstallPath)\RevitAPIUI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="AdWindows">
+      <HintPath>$(RevitInstallPath)\AdWindows.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="System.Web.Extensions" Condition="'$(Configuration)' == 'Legacy'" />
+    <EmbeddedResource Include="Resources\RadialButton_16.png;Resources\RadialButton_32.png;Resources\RadialButton.ico" />
+  </ItemGroup>
+  <Target Name="CheckRevitApi" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="'$(RevitVersion)' != ''" Text="Use Release (2025+) or Legacy (2024-); RevitVersion is no longer used." />
+    <Error Condition="'$(Configuration)' != 'Debug' and '$(Configuration)' != 'Release' and '$(Configuration)' != 'Legacy'" Text="Choose Debug, Release or Legacy." />
+    <Error Condition="!Exists('$(RevitInstallPath)\RevitAPI.dll') or !Exists('$(RevitInstallPath)\RevitAPIUI.dll') or !Exists('$(RevitInstallPath)\AdWindows.dll')" Text="Revit $(ApiYear) API not found. Pass -p:RevitInstallPath=path to the baseline Revit installation." />
+    <GetAssemblyIdentity AssemblyFiles="$(RevitInstallPath)\RevitAPI.dll;$(RevitInstallPath)\RevitAPIUI.dll">
+      <Output TaskParameter="Assemblies" ItemName="RevitApiIdentity" />
+    </GetAssemblyIdentity>
+    <ItemGroup>
+      <RevitApiIdentity Update="@(RevitApiIdentity)">
+        <Year>20$([System.Version]::Parse('%(RevitApiIdentity.Version)').Major)</Year>
+      </RevitApiIdentity>
+    </ItemGroup>
+    <Error Condition="'%(RevitApiIdentity.Year)' != '$(ApiYear)'" Text="$(BuildFamily) requires Revit $(ApiYear) API; found %(RevitApiIdentity.Version)." />
+  </Target>
+  <Target Name="CopyManifest" AfterTargets="Build">
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\RadialButton.addin" DestinationFolder="$(OutputPath).." />
+    <Message Importance="high" Text="RadialButton $(BuildFamily): $(TargetPath)" />
+  </Target>
+  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+</Project>

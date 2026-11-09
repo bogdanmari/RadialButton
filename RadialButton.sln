@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadialButton", "src\RadialButton\RadialButton.csproj", "{B2DD8D7A-54D0-4B49-88AD-D4D56B6BA5F4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+		Legacy|x64 = Legacy|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B2DD8D7A-54D0-4B49-88AD-D4D56B6BA5F4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B2DD8D7A-54D0-4B49-88AD-D4D56B6BA5F4}.Debug|x64.Build.0 = Debug|Any CPU
+		{B2DD8D7A-54D0-4B49-88AD-D4D56B6BA5F4}.Release|x64.ActiveCfg = Release|Any CPU
+		{B2DD8D7A-54D0-4B49-88AD-D4D56B6BA5F4}.Release|x64.Build.0 = Release|Any CPU
+		{B2DD8D7A-54D0-4B49-88AD-D4D56B6BA5F4}.Legacy|x64.ActiveCfg = Legacy|Any CPU
+		{B2DD8D7A-54D0-4B49-88AD-D4D56B6BA5F4}.Legacy|x64.Build.0 = Legacy|Any CPU
+	EndGlobalSection
+EndGlobal
